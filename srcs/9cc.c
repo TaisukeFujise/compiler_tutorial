@@ -1,4 +1,4 @@
-#include "cc9.h"
+#include "../includes/cc9.h"
 
 Token *token;
 
