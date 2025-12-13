@@ -1,11 +1,32 @@
-CFLAGS=std=c11 -g -static
+NAME:=9cc
 
-9cc:9cc.c
+SRCDIR:=srcs
+SRCS:=9cc.c utils.c
+OBJDIR:=obj
+OBJS:=$(addprefix $(OBJDIR)/,$(SRCS:%.c=%.o))
+SRCS:=$(addprefix $(SRCDIR)/, $(SRCS)) 
 
-test:9cc
+HEADDIR:=includes
+HEADERS:=cc9.h
+HEADERS:=$(addprefix $(HEADDIR)/, $(HEADERS)) 
+
+CC=cc
+CFLAGS=-std=c11 -g -static -I$(HEADDIR)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS)	
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
+	@mkdir -p $(dir $@)	
+	$(CC) $(CFLAGS) -c $< -o $@	
+
+test: $(NAME)
 	./test.sh
 
 clean:
-	rm -f 9cc *.o *~ tmp*
+	rm -rf $(OBJDIR)	
+	rm -f $(NAME) *~ tmp*
 
-.PHONY: test clean
+.PHONY: all test clean
