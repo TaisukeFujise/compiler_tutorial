@@ -1,14 +1,5 @@
 #include "../includes/cc9.h"
 
-void	error(char *fmt, ...)
-{
-	va_list	ap;
-	va_start(ap, fmt);
-	vfprintf(stderr, fmt, ap);
-	fprintf(stderr, "\n");
-	exit (1);
-}
-
 bool	consume(char op)
 {
 	if (token->kind != TK_RESERVED || token->str[0] != op)
@@ -20,7 +11,7 @@ bool	consume(char op)
 void	expect(char op)
 {
 	if (token->kind != TK_RESERVED || token->str[0] != op)
-		error("'%c' is invalid", op);
+		error_at(token->str, "expected '%c'", op);
 	token = token->next;
 }
 
@@ -29,7 +20,7 @@ int	expect_number()
 	int	val;
 
 	if (token->kind != TK_NUM)
-		error("not number");
+		error_at(token->str, "expected a number");
 	val = token->val;
 	token = token->next; 
 	return (val);	
@@ -53,11 +44,13 @@ Token	*new_token(TokenKind kind, Token *cur, char *str)
 	return (tok);	
 }	
 
-Token	*tokenize(char *p)
+Token	*tokenize()
 {
+	char	*p;	
 	Token	head;
 	Token	*cur;
 
+	p = user_input;	
 	head.next = NULL;
 	cur = &head;	
 
@@ -79,7 +72,7 @@ Token	*tokenize(char *p)
 			cur->val = strtol(p, &p, 10);
 			continue;	
 		}	
-		error("can't tokenize");	
+		error_at(p, "can't tokenize");	
 	}	
 	new_token(TK_EOF, cur, p);
 	return (head.next);	

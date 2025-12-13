@@ -1,7 +1,7 @@
 NAME:=9cc
 
 SRCDIR:=srcs
-SRCS:=9cc.c utils.c
+SRCS:=9cc.c utils.c error.c
 OBJDIR:=obj
 OBJS:=$(addprefix $(OBJDIR)/,$(SRCS:%.c=%.o))
 SRCS:=$(addprefix $(SRCDIR)/, $(SRCS)) 
@@ -27,6 +27,11 @@ test: $(NAME)
 
 clean:
 	rm -rf $(OBJDIR)	
-	rm -f $(NAME) *~ tmp*
+	rm -f *~ tmp*
+
+fclean: clean
+	rm -f $(NAME)	
+
+re: fclean all	
 
 .PHONY: all test clean

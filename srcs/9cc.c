@@ -1,6 +1,7 @@
 #include "../includes/cc9.h"
 
-Token *token;
+char	*user_input;
+Token 	*token;
 
 int	main(int argc, char **argv)
 {	
@@ -9,7 +10,8 @@ int	main(int argc, char **argv)
 		error("invalid arg");	
 		return (1);
 	}
-	token = tokenize(argv[1]);	
+	user_input = argv[1];	
+	token = tokenize();		
 	printf(".intel_syntax noprefix\n");
 	printf(".globl main\n");
 	printf("main:\n");

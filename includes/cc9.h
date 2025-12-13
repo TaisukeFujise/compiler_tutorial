@@ -25,14 +25,16 @@ struct Token
 	char		*str;
 };
 
-extern Token *token;
+extern char		*user_input;
+extern Token	*token;
 
 void	error(char *fmt, ...);
+void	error_at(char *loc, char *fmt, ...);
 bool	consume(char op);
 void	expect(char op);
 int		expect_number();
 bool	at_eof();
 Token	*new_token(TokenKind kind, Token *cur, char *str);
-Token	*tokenize(char *p);
+Token	*tokenize();
 
 #endif
