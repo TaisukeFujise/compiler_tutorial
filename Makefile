@@ -1,7 +1,7 @@
 NAME:=9cc
 
 SRCDIR:=srcs
-SRCS:=9cc.c utils.c error.c lexer.c parser.c gen.c
+SRCS:=main.c utils.c error.c lexer.c parser.c codegen.c
 OBJDIR:=obj
 OBJS:=$(addprefix $(OBJDIR)/,$(SRCS:%.c=%.o))
 SRCS:=$(addprefix $(SRCDIR)/, $(SRCS)) 
@@ -34,4 +34,4 @@ fclean: clean
 
 re: fclean all	
 
-.PHONY: all test clean
+.PHONY: all test clean fclean re
