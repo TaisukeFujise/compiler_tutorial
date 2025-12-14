@@ -1,6 +1,7 @@
 #include "../includes/cc9.h"
 
 Node	*mul();
+Node	*unary();
 Node	*primary();
 
 /* create a new node from "kind", "lhs", and "rhs" */
@@ -36,32 +37,43 @@ Node	*expr()
 	for (;;)
 	{
 		/* left_associative, so pass a old node to lhs(second arg)*/
-		if (consume('+'))
+		if (consume("+"))
 			node = new_node(ND_ADD, node, mul()); 
-		else if (consume('-'))
+		else if (consume("-"))
 			node = new_node(ND_SUB, node, mul());
 		else
 			return (node);
 	}
 }
 
-/* 「 mul = primary ("*" primary | "/" primary)* 」
+/* 「 mul = unary ("*" unary | "/" unary)* 」
  *  create a mul() Node */
 Node	*mul()
 {
-	Node	*node = primary();
+	Node	*node = unary();
 
 	for (;;)
 	{
 		/* left_associative */
-		if (consume('*'))
-			node = new_node(ND_MUL, node, primary());
-		else if (consume('/'))
-			node = new_node(ND_DIV, node, primary());
+		if (consume("*"))
+			node = new_node(ND_MUL, node, unary());
+		else if (consume("/"))
+			node = new_node(ND_DIV, node, unary());
 		else
 			return (node);
 	}
 }
+
+/* 「 unary = ("+" | "-")? primary 」
+ * create a unary Node */
+Node	*unary()
+{
+	if (consume("+"))	
+		return (primary());
+	if (consume("-"))
+		return (new_node(ND_SUB, new_node_num(0), primary())); // "-x" -> "0-x"
+	return (primary());	
+}	
 
 /* 「 primary = "(" expr"")" | num 」
  * create a primary Node */
@@ -69,10 +81,10 @@ Node	*primary()
 {
 	Node	*node;	
 
-	if (consume('('))
+	if (consume("("))
 	{	
 		node = expr();
-		expect(')');	
+		expect(")");	
 		return (node);	
 	}	
 	return (new_node_num(expect_number()));	

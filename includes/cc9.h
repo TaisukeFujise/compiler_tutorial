@@ -23,7 +23,8 @@ struct Token
 	TokenKind	kind;
 	Token		*next;
 	int			val;
-	char		*str;
+	char		*str; // token string
+	int			len; // token length
 };
 
 Token	*tokenize();
@@ -38,7 +39,9 @@ typedef enum
 	ND_SUB,
 	ND_MUL,
 	ND_DIV,
-	ND_NUM,
+	ND_NUM,	
+	// ND_EQ, // equlity node
+	// ND_RE, // relational node
 }	NodeKind;
 
 typedef struct Node Node;
@@ -56,8 +59,8 @@ void	error(char *fmt, ...);
 void	error_at(char *loc, char *fmt, ...);
 
 /* utils.c */
-bool	consume(char op);
-void	expect(char op);
+bool	consume(char *op);
+void	expect(char *op);
 int		expect_number();
 bool	at_eof();
 
