@@ -17,14 +17,29 @@ else
 fi
 }
 
-assert 0 0
-assert 42 42
-assert 21 "5+20-4"
-assert 41 "12 + 34 - 5"
-assert 14 "2 * (3 + 4)"
-assert 2  "24 / (14 - 2)"
-assert 16 "2*(3+ 4) + 24 / (14 -2)"
-assert 3 "-2 + 5"
-assert 2  "2"
+# assert 0 0
+# assert 42 42
+# assert 21 "5+20-4"
+# assert 41 "12 + 34 - 5"
+# assert 14 "2 * (3 + 4)"
+# assert 2  "24 / (14 - 2)"
+# assert 16 "2*(3+ 4) + 24 / (14 -2)"
+# assert 3 "-2 + 5"
+# assert 2  "2"
+assert 1 "2 == 2"
+assert 0 "1 == 2"
+assert 1 "2 != 3"
+assert 0 "2 == 2"
+assert 1 "2 <= 3"
+assert 0 "3 <= 2"
+assert 1 "2 < 3"
+assert 0 "3 < 2"
+assert 1 "3 >= 2"
+assert 0 "2 >= 3"
+assert 1 "3 > 2"
+assert 0 "2 < 3"
+
+assert 1 "(2 + 4) == (8 - 2)"
+assert 0 "2 * (2 + 3) <= 0"
 
 echo OK

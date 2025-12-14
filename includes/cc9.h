@@ -40,8 +40,14 @@ typedef enum
 	ND_MUL,
 	ND_DIV,
 	ND_NUM,	
-	// ND_EQ, // equlity node
-	// ND_RE, // relational node
+	ND_EQ,   // equality node
+	ND_NEQ,  // non equality node 
+	ND_COM_I,
+	ND_COM_N,	
+	// ND_LTEQ, // less than or equal to
+	// ND_GTEQ, // greater than or equal to
+	// ND_LT,   // less than
+	// ND_GT,	 // greater than
 }	NodeKind;
 
 typedef struct Node Node;

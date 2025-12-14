@@ -3,6 +3,19 @@
 char	*user_input;
 Token 	*token;
 
+void	print_token(Token *token)
+{
+	while(token != NULL)
+	{
+		puts("==Token==");	
+		printf("TokenKind: %d\n", token->kind);
+		printf("val: %d\n", token->val);
+		printf("str: %s\n", token->str);	
+		printf("len: %d\n", token->len);	
+		token = token->next;	
+	}	
+}	
+
 int	main(int argc, char **argv)
 {	
 	Node	*node;	
@@ -13,6 +26,7 @@ int	main(int argc, char **argv)
 	}
 	user_input = argv[1];	
 	token = tokenize(); // lexer 
+	// print_token(token); 
 	node = expr(); // parser
  
 	// assembly first section //	
