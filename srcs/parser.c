@@ -9,8 +9,6 @@ Node	*new_node(NodeKind kind, Node *lhs, Node *rhs)
 	Node	*node;
 
 	node = calloc(1, sizeof(Node));
-	if (node == NULL)
-		return (NULL);
 	node->kind = kind;
 	node->lhs = lhs;
 	node->rhs = rhs;
@@ -23,8 +21,6 @@ Node	*new_node_num(int val)
 	Node	*node;
 
 	node = calloc(1, sizeof(Node));
-	if (node == NULL)
-		return (NULL);
 	node->kind = ND_NUM;
 	node->val = val;
 	return (node);

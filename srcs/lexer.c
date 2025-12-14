@@ -5,8 +5,6 @@ Token	*new_token(TokenKind kind, Token *cur, char *str)
 	Token	*tok;
 
 	tok = calloc(1, sizeof(Token));
-	if (tok == NULL)
-		return (NULL);
 	tok->kind = kind;
 	tok->str = str;
 	cur->next = tok;
