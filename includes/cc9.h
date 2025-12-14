@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* lexer */
 typedef enum
 {
 	TK_RESERVED, // symbol
@@ -25,16 +26,44 @@ struct Token
 	char		*str;
 };
 
+Token	*tokenize();
+
 extern char		*user_input;
 extern Token	*token;
 
+/* parser */
+typedef enum
+{
+	ND_ADD,
+	ND_SUB,
+	ND_MUL,
+	ND_DIV,
+	ND_NUM,
+}	NodeKind;
+
+typedef struct Node Node;
+
+struct Node
+{
+	NodeKind	kind; // node type
+	Node		*lhs; // left-hand-side
+	Node		*rhs; // right-hand-side
+	int			val; // integer when this node is ND_NUM
+};
+
+/* error.c */
 void	error(char *fmt, ...);
 void	error_at(char *loc, char *fmt, ...);
+
+/* utils.c */
 bool	consume(char op);
 void	expect(char op);
 int		expect_number();
 bool	at_eof();
-Token	*new_token(TokenKind kind, Token *cur, char *str);
-Token	*tokenize();
+
+/* parser.c */
+Node	*expr();
+/* gen.c */
+void	gen(Node *node);
 
 #endif

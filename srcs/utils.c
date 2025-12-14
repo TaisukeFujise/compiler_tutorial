@@ -1,5 +1,6 @@
 #include "../includes/cc9.h"
 
+/* if next token's kind macthes argument "op", proceed token to the next one.(return true) */ 
 bool	consume(char op)
 {
 	if (token->kind != TK_RESERVED || token->str[0] != op)
@@ -8,6 +9,8 @@ bool	consume(char op)
 	return true;
 }
 
+/* if next token's kind macthes argument "op", proceed token to the next one. (void) 
+ * The difference from consume is that it's the last parser so print error if the op does'nt macth.*/
 void	expect(char op)
 {
 	if (token->kind != TK_RESERVED || token->str[0] != op)
@@ -30,50 +33,4 @@ bool	at_eof()
 {
 	return token->kind == TK_EOF;	
 }	
-
-Token	*new_token(TokenKind kind, Token *cur, char *str)
-{
-	Token	*tok;
-
-	tok = calloc(1, sizeof(Token));
-	if (tok == NULL)
-		return (NULL);
-	tok->kind = kind;
-	tok->str = str;
-	cur->next = tok;
-	return (tok);	
-}	
-
-Token	*tokenize()
-{
-	char	*p;	
-	Token	head;
-	Token	*cur;
-
-	p = user_input;	
-	head.next = NULL;
-	cur = &head;	
-
-	while (*p != '\0')
-	{
-		if (isspace(*p))
-		{
-			p++;
-			continue;	
-		}	
-		if (*p == '+' || *p == '-')
-		{
-			cur = new_token(TK_RESERVED, cur, p++);
-			continue;	
-		}	
-		if (isdigit(*p))
-		{
-			cur = new_token(TK_NUM, cur, p);	
-			cur->val = strtol(p, &p, 10);
-			continue;	
-		}	
-		error_at(p, "can't tokenize");	
-	}	
-	new_token(TK_EOF, cur, p);
-	return (head.next);	
-}	
+	

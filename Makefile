@@ -1,7 +1,7 @@
 NAME:=9cc
 
 SRCDIR:=srcs
-SRCS:=9cc.c utils.c error.c
+SRCS:=9cc.c utils.c error.c lexer.c parser.c gen.c
 OBJDIR:=obj
 OBJS:=$(addprefix $(OBJDIR)/,$(SRCS:%.c=%.o))
 SRCS:=$(addprefix $(SRCDIR)/, $(SRCS)) 
